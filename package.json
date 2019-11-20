@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint",
     "task1": "nodemon task1.js"
   },
   "repository": {
@@ -18,6 +19,9 @@
   },
   "homepage": "https://github.com/eugene2candy/nodejs-mentoring-program#readme",
   "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.4"
   }
 }
