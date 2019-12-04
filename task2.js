@@ -1,6 +1,7 @@
 const csvPath = './csv/node_mentoring_t1_2_input_example.csv';
 const csv = require('csvtojson');
 const fs = require('fs');
+const es = require('event-stream');
 
 // csv().fromFile(csvPath).then((jsonObj) => {
 // //   console.log(jsonObj);
@@ -16,6 +17,7 @@ const fs = require('fs');
 // });
 
 // remake
+const writable = fs.createWriteStream('./task2.txt', 'utf8');
 fs.createReadStream(csvPath)
   .on('data', (data) => {
     csv({
@@ -30,10 +32,7 @@ fs.createReadStream(csvPath)
       checkType: true,
     }).fromString(data.toString()).then((jsonObj) => {
       jsonObj.forEach((p) => {
-        fs.appendFile('task2.txt', `${JSON.stringify(p)}\n`, (err) => {
-          if (err) throw err;
-          console.log('write json to a txt... Done!');
-        });
+        writable.write(`${JSON.stringify(p)}\n`);
       });
     });
   })
@@ -43,3 +42,19 @@ fs.createReadStream(csvPath)
   .on('error', (e) => {
     console.error(e);
   });
+
+// // remake again
+// const readable = fs.createReadStream(csvPath);
+// const writable = fs.createWriteStream('./task2.txt', 'utf8');
+
+// readable
+//   .pipe(es.split())
+//   .pipe(
+//     es.mapSync((line) => {
+//       console.log(line);
+//       writable.write(line);
+//     }),
+//   )
+//   .on('error', (e) => {
+//     console.log(e);
+//   });
