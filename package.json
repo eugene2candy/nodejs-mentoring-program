@@ -1,13 +1,9 @@
 {
   "name": "nodejs-mentoring-program",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc",
-    "task1": "tsc && nodemon ./build/task1.js",
-    "task2": "tsc && nodemon ./build/task2.js"
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,18 +15,26 @@
     "url": "https://github.com/eugene2candy/nodejs-mentoring-program/issues"
   },
   "homepage": "https://github.com/eugene2candy/nodejs-mentoring-program#readme",
+  "dependencies": {
+    "@hapi/joi": "^16.1.8",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-joi-validation": "^4.0.3",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "joigoose": "^6.2.0",
+    "mongoose": "^5.8.1",
+    "morgan": "~1.9.1"
+  },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.7.4",
-    "@typescript-eslint/eslint-plugin": "^2.11.0",
-    "@typescript-eslint/parser": "^2.11.0",
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
-    "nodemon": "^1.19.4",
-    "typescript": "^3.7.3"
-  },
-  "dependencies": {
-    "@types/express": "^4.17.2",
-    "express": "^4.17.1"
+    "nodemon": "^2.0.2"
   }
 }
