@@ -1,7 +1,7 @@
 const userService = require('../service/user');
 
-exports.create = (req, res, next) => {
-    const body = new User(req.body);
+exports.create = (req, res) => {
+    const { body } = req;
     userService.createUser(body, (error, response) => {
         if (response) {
             res.status(201).send(response);
@@ -36,7 +36,11 @@ exports.find = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    userService.findUsers({}, (error, response) => {
+    const params = req.params || {};
+    console.log(params); // { sort: '-1', limit: '3' }
+    const sort = Number(params.sort);
+    const limit = Number(params.limit);
+    userService.findUsers({}, sort, limit, (error, response) => {
         if (error) {
             res.status(404).send(error);
             return;
@@ -52,13 +56,16 @@ exports.findAll = (req, res) => {
 };
 
 exports.updateById = (req, res) => {
-    const body = new User(req.body);
-    if (!body.id) {
+    const params = req.params || {};
+    const query = {
+        id: params.id
+    };
+    if (!query) {
         res.status(400).send('Id is missing');
         return;
     }
-    const updateData = body || {};
-    userService.updateUserById(body.id, updateData, (err, response) => {
+    const updateData = req.body || {};
+    userService.updateUserById(query, updateData, (err, response) => {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
@@ -68,13 +75,16 @@ exports.updateById = (req, res) => {
 };
 
 exports.deleteById = (req, res) => {
-    const body = new User(req.body);
-    if (!body.id) {
+    const params = req.params || {};
+    const query = {
+        id: params.id
+    };
+    if (!query) {
         res.status(400).send('Id is missing');
         return;
     }
     const updateData = { isDeleted: true };
-    userService.deleteUser(body.id, updateData, (err, response) => {
+    userService.deleteUser(query, updateData, (err, response) => {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
@@ -82,13 +92,3 @@ exports.deleteById = (req, res) => {
         }
     });
 };
-
-class User {
-    constructor(userData) {
-        this.id = userData.id || '';
-        this.login = userData.login || '';
-        this.password = userData.password || '';
-        this.age = userData.age || '';
-        this.isDeleted = userData.isDeleted || '';
-    }
-}

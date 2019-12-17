@@ -26,12 +26,12 @@ const joiUserSchema = Joi.object({
         .max(130)
         .required(),
 
-    isDeleted: Joi.boolean()
-        .required()
+    isDeleted: Joi.boolean().required()
 });
 
 const mongooseUserSchema = new mongoose.Schema(Joigoose.convert(joiUserSchema));
 
+// eslint-disable-next-line new-cap
 const user = new mongoose.model('User', mongooseUserSchema);
 
 module.exports = user;
