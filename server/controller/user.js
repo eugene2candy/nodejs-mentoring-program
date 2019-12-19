@@ -37,6 +37,7 @@ exports.find = (req, res) => {
 
 exports.findAll = (req, res) => {
     const query = req.query || {};
+    // eslint-disable-next-line no-console
     console.log(query); // { sort: '-1', limit: '3' }
     const login = String(query.login) || null;
     const limit = Number(query.limit);

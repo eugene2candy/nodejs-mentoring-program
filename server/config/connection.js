@@ -21,9 +21,11 @@ const db = mongoose.connection;
 
 // We enebled the Listener
 db.on('error', () => {
+    // eslint-disable-next-line no-console
     console.error('Error occured in db connection');
 });
 
 db.on('open', () => {
+    // eslint-disable-next-line no-console
     console.log('DB Connection established successfully');
 });

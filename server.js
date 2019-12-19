@@ -59,6 +59,7 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+// eslint-disable-next-line no-console
 server.listen(port, () => console.log(`API running on localhost:${port}`));
 
 module.exports = app;

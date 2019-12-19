@@ -1,41 +1,43 @@
 {
-  "name": "nodejs-mentoring-program",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "server": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eugene2candy/nodejs-mentoring-program.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/eugene2candy/nodejs-mentoring-program/issues"
-  },
-  "homepage": "https://github.com/eugene2candy/nodejs-mentoring-program#readme",
-  "dependencies": {
-    "@hapi/joi": "^16.1.8",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-joi-validation": "^4.0.3",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "joigoose": "^6.2.0",
-    "mongoose": "^5.8.1",
-    "morgan": "~1.9.1",
-    "pug": "^2.0.4"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/preset-env": "^7.7.6",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.19.1",
-    "nodemon": "^2.0.2"
-  }
+    "name": "nodejs-mentoring-program",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "server": "nodemon server.js",
+        "lint": "eslint ./server.js ./server/**",
+        "lint:fix": "eslint ./server.js ./server/** --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eugene2candy/nodejs-mentoring-program.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/eugene2candy/nodejs-mentoring-program/issues"
+    },
+    "homepage": "https://github.com/eugene2candy/nodejs-mentoring-program#readme",
+    "dependencies": {
+        "@hapi/joi": "^16.1.8",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "express-joi-validation": "^4.0.3",
+        "http-errors": "~1.6.3",
+        "jade": "~1.11.0",
+        "joigoose": "^6.2.0",
+        "mongoose": "^5.8.1",
+        "morgan": "~1.9.1",
+        "pug": "^2.0.4"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.7.5",
+        "@babel/core": "^7.7.5",
+        "@babel/preset-env": "^7.7.6",
+        "babel-eslint": "^10.0.3",
+        "eslint": "^6.7.2",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.19.1",
+        "nodemon": "^2.0.2"
+    }
 }
