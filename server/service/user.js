@@ -17,10 +17,10 @@ exports.findUser = (query, callback) => {
     user.findOne(query, callback);
 };
 
-exports.findUsers = (query, sort, limit, callback) => {
+exports.findUsers = (query, limit, callback) => {
     // sorted by login property and limited users
-    user.find(query, callback)
-        .sort({ login: sort })
+    user.find({ login: new RegExp(query, 'i') }, callback)
+        .sort({ login: 1 })
         .limit(limit);
 };
 

@@ -7,10 +7,10 @@ router.post('/', user.create);
 
 router.get('/:id', user.find);
 
-router.get('/:sort/:limit', user.findAll);
+router.get('', user.findAll);
 
 router.put('/:id', user.updateById);
 
-router.put('/delete/:id', user.deleteById);
+router.delete('/:id', user.deleteById);
 
 module.exports = router;

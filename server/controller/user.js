@@ -36,11 +36,11 @@ exports.find = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const params = req.params || {};
-    console.log(params); // { sort: '-1', limit: '3' }
-    const sort = Number(params.sort);
-    const limit = Number(params.limit);
-    userService.findUsers({}, sort, limit, (error, response) => {
+    const query = req.query || {};
+    console.log(query); // { sort: '-1', limit: '3' }
+    const login = String(query.login) || null;
+    const limit = Number(query.limit);
+    userService.findUsers(login, limit, (error, response) => {
         if (error) {
             res.status(404).send(error);
             return;
