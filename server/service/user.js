@@ -19,7 +19,7 @@ exports.findUser = (query, callback) => {
 
 exports.findUsers = (query, limit, callback) => {
     // sorted by login property and limited users
-    user.find({ login: new RegExp(query, 'i') }, callback)
+    user.find(query ? {} : { login: new RegExp(query, 'i') }, callback)
         .sort({ login: 1 })
         .limit(limit);
 };

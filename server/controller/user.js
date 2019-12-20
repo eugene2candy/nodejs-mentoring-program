@@ -39,7 +39,9 @@ exports.findAll = (req, res) => {
     const query = req.query || {};
     // eslint-disable-next-line no-console
     console.log(query); // { sort: '-1', limit: '3' }
-    const login = String(query.login) || null;
+    const login = String(query.login);
+    // eslint-disable-next-line no-console
+    console.log(login);
     const limit = Number(query.limit);
     userService.findUsers(login, limit, (error, response) => {
         if (error) {
