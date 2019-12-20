@@ -19,9 +19,15 @@ exports.findUser = (query, callback) => {
 
 exports.findUsers = (query, limit, callback) => {
     // sorted by login property and limited users
-    user.find(query ? {} : { login: new RegExp(query, 'i') }, callback)
-        .sort({ login: 1 })
-        .limit(limit);
+    if (query !== 'undefined') {
+        user.find({ login: new RegExp(query, 'i') }, callback)
+            .sort({ login: 1 })
+            .limit(limit);
+    } else {
+        user.find({}, callback)
+            .sort({ login: 1 })
+            .limit(limit);
+    }
 };
 
 exports.updateUserById = (query, data, options, callback) => {
