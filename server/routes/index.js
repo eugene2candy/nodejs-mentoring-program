@@ -1,10 +1,19 @@
-const express = require('express');
+const usersController = require('../controllers').users;
 
-const router = express.Router();
+module.exports = app => {
+    app.get(
+        '/api',
+        (req, res) =>
+            // eslint-disable-next-line implicit-arrow-linebreak
+            res.status(200).send({
+                message: 'Welcome to the Users API!'
+            })
+        // eslint-disable-next-line function-paren-newline
+    );
 
-/* GET home page. */
-router.get('/', (req, res) => {
-    res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+    app.post('', usersController.create);
+    app.get('/getList', usersController.list);
+    app.get('/getOne', usersController.retrieve);
+    app.put('', usersController.update);
+    app.delete('', usersController.destroy);
+};
