@@ -11,9 +11,9 @@ module.exports = app => {
         // eslint-disable-next-line function-paren-newline
     );
 
-    app.post('', usersController.create);
-    app.get('/getList', usersController.list);
-    app.get('/getOne', usersController.retrieve);
-    app.put('', usersController.update);
-    app.delete('', usersController.destroy);
+    app.post('/user', usersController.create);
+    app.get('/user', usersController.list);
+    app.get('/user/:id', usersController.retrieve);
+    app.put('/user/:id', usersController.update);
+    app.delete('/user/:id', usersController.destroy);
 };

@@ -1,65 +1,78 @@
 const userService = require('../services/users');
 
 module.exports = {
-    create(req, res) {
-        return userService.createUser(req, (error, response) => {
-            if (response) {
-                res.status(200).send(response);
-            } else if (error) {
-                res.status(400).send(error);
-            }
-        });
+    async create(req, res) {
+        const userDTO = req.body;
+        try {
+            const user = await userService.createUser(userDTO);
+            res.status(200).send(user);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     },
 
-    list(req, res) {
-        return userService.findList(req, (error, response) => {
-            if (response) {
-                res.status(200).send(response);
-            } else if (error) {
-                res.status(400).send(error);
-            } else if (!response) {
-                res.status(204).send('No data found');
+    async list(req, res) {
+        const { login, limit } = req.query;
+        try {
+            const list = await userService.findList(login, limit);
+            if (list) {
+                res.status(200).send(list);
+            } else {
+                res.status(404).send('Not found!');
             }
-        });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     },
 
-    retrieve(req, res) {
-        return userService.findOne(req, (error, response) => {
-            if (response) {
-                res.status(200).send(response);
-            } else if (error) {
-                res.status(400).send(error);
-            } else if (!response) {
-                res.status(204).send('No data found');
+    async retrieve(req, res) {
+        const { id } = req.params;
+        try {
+            const user = await userService.findOne(id);
+            if (user) {
+                res.status(200).send(user);
+            } else {
+                res.status(404).send('Not found!');
             }
-        });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     },
 
-    update(req, res) {
-        if (!req.query.id) {
-            res.status(400).send('Id is missing');
+    async update(req, res) {
+        const { id } = req.params;
+        const userDTO = req.body;
+        if (!id) {
+            res.status(404).send('Id is missing');
             return;
         }
-        userService.updateUserById(req, (error, response) => {
-            if (response) {
-                res.status(200).send(response);
-            } else if (error) {
-                res.status(400).send(error);
+        try {
+            const user = await userService.updateUserById(id, userDTO);
+            if (user) {
+                res.status(200).send(user);
+            } else {
+                res.status(404).send('Not found!');
             }
-        });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     },
 
-    destroy(req, res) {
-        if (!req.query.id) {
-            res.status(400).send('Id is missing');
+    async destroy(req, res) {
+        const { id } = req.params;
+        if (!id) {
+            res.status(404).send('Id is missing');
             return;
         }
-        userService.deleteUserById(req, (error, response) => {
-            if (response) {
-                res.status(200).send(response);
-            } else if (error) {
-                res.status(400).send(error);
+        try {
+            const user = await userService.deleteUserById(id);
+            if (user) {
+                res.status(200).send(user);
+            } else {
+                res.status(404).send('Not found!');
             }
-        });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     }
 };
