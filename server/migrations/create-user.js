@@ -1,16 +1,17 @@
+const uuid = require('uuid/v4');
+
 module.exports = {
     up: (queryInterface, Sequelize) =>
         // eslint-disable-next-line implicit-arrow-linebreak
         queryInterface.createTable('Users', {
             id: {
-                allowNull: false,
-                autoIncrement: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.UUID,
+                defaultValue: uuid(),
+                primaryKey: true
             },
             login: {
                 type: Sequelize.STRING,
-                allowNull: false,
-                primaryKey: true
+                allowNull: false
             },
             password: {
                 type: Sequelize.STRING,
