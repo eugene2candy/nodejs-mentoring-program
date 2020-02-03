@@ -1,27 +1,19 @@
 module.exports = {
     up: (queryInterface, Sequelize) =>
         // eslint-disable-next-line implicit-arrow-linebreak
-        queryInterface.createTable('Users', {
+        queryInterface.createTable('Groups', {
             id: {
                 type: Sequelize.UUID,
                 primaryKey: true
             },
-            login: {
+            name: {
                 unique: true,
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            password: {
-                type: Sequelize.STRING,
+            permission: {
+                type: Sequelize.ENUM('READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'),
                 allowNull: false
-            },
-            age: {
-                allowNull: false,
-                type: Sequelize.INTEGER
-            },
-            isDeleted: {
-                allowNull: false,
-                type: Sequelize.BOOLEAN
             },
             createdAt: {
                 allowNull: false,
@@ -32,5 +24,5 @@ module.exports = {
                 type: Sequelize.DATE
             }
         }),
-    down: (queryInterface /* , Sequelize */) => queryInterface.dropTable('Users')
+    down: (queryInterface /* , Sequelize */) => queryInterface.dropTable('Groups')
 };
