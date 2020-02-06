@@ -1,6 +1,5 @@
 /* eslint-disable arrow-body-style */
 const groupService = require('../services/groups');
-const { sequelize } = require('../models');
 
 module.exports = {
     async create(req, res) {
@@ -57,7 +56,7 @@ module.exports = {
         const { id } = req.params;
         const groupDTO = req.body;
         if (!id) {
-            res.status(404).send('Id is missing');
+            res.status(400).send('Id is missing');
             return;
         }
         try {
@@ -73,28 +72,23 @@ module.exports = {
     },
 
     async addUser(req, res) {
-        const { GroupId, UserId } = req.body;
+        const { GroupId, UserIds } = req.body;
         if (!GroupId) {
-            res.status(404).send('GroupId is missing');
+            res.status(400).send('GroupId is missing');
             return;
         }
-        if (!UserId) {
-            res.status(404).send('UserId is missing');
+        if (!UserIds) {
+            res.status(400).send('UserId is missing');
             return;
         }
-        let transaction;
         try {
-            transaction = await sequelize.transaction();
-            const usergroup = await groupService.addUsersToGroup(GroupId, UserId, { transaction });
+            const usergroup = await groupService.addUsersToGroup(GroupId, UserIds);
             if (usergroup) {
-                await transaction.commit();
                 res.status(200).send(usergroup);
             } else {
-                await transaction.rollback();
-                res.status(404).send('Relation Existed! ');
+                res.status(400).send('Validation Error');
             }
         } catch (error) {
-            await transaction.rollback();
             res.status(400).send(error.message);
         }
     },
@@ -102,7 +96,7 @@ module.exports = {
     async destroy(req, res) {
         const { id } = req.params;
         if (!id) {
-            res.status(404).send('Id is missing');
+            res.status(400).send('Id is missing');
             return;
         }
         try {

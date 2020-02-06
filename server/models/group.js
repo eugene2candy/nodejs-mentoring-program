@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         permission: {
-            type: DataTypes.ENUM,
+            type: DataTypes.ARRAY(DataTypes.ENUM),
             values: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'],
             allowNull: false
         }

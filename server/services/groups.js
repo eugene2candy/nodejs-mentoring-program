@@ -1,11 +1,19 @@
 /* eslint-disable arrow-body-style */
+const { Op } = require('sequelize');
 const { Group, User, UserGroup } = require('../models');
+const { sequelize } = require('../models');
 
 module.exports = {
     async createGroup({ name, permission }) {
+        let element = [];
+        if (typeof permission === 'string') {
+            element[0] = permission;
+        } else {
+            element = permission;
+        }
         return Group.create({
             name,
-            permission
+            permission: element
         });
     },
 
@@ -19,26 +27,34 @@ module.exports = {
 
     async updateGroupById(id, { name, permission }) {
         const group = await Group.findByPk(id);
-        if (group) {
-            return group.update({
-                name: name || group.name,
-                permission: permission || group.permission
-            });
-        }
-        return Group.findByPk(id);
+        if (!group) return group;
+        return group.update({
+            name: name || group.name,
+            permission: permission || group.permission
+        });
     },
 
-    async addUsersToGroup(GroupId, UserId) {
+    async addUsersToGroup(GroupId, UserIds) {
         const group = await Group.findByPk(GroupId);
-        if (group) {
-            const user = await User.findByPk(UserId);
-            if (user) {
-                const usergroup = await group.addUser(user);
-                return usergroup;
+        if (!group) return group;
+        const users = await User.findAll({
+            where: {
+                id: {
+                    [Op.in]: UserIds
+                }
             }
-            return User.findByPk(UserId);
+        });
+        if (!users) return users;
+
+        const transaction = await sequelize.transaction();
+        try {
+            const usergroup = await group.addUser(users, { transaction });
+            await transaction.commit();
+            return usergroup;
+        } catch (error) {
+            await transaction.rollback();
+            throw error;
         }
-        return Group.findByPk(GroupId);
     },
 
     findUserGroupList() {
@@ -47,9 +63,7 @@ module.exports = {
 
     async deleteGroupById(id) {
         const group = await Group.findByPk(id);
-        if (group) {
-            return group.destroy();
-        }
-        return Group.findByPk(id);
+        if (!group) return group;
+        return group.destroy();
     }
 };
