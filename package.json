@@ -19,9 +19,9 @@
     "homepage": "https://github.com/eugene2candy/nodejs-mentoring-program#readme",
     "dependencies": {
         "@hapi/joi": "^16.1.8",
+        "body-parser": "^1.19.0",
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
-        "body-parser": "^1.19.0",
         "express": "~4.16.1",
         "express-joi-validation": "^4.0.3",
         "http-errors": "~1.6.3",
@@ -29,10 +29,11 @@
         "joigoose": "^6.2.0",
         "mongoose": "^5.8.1",
         "morgan": "~1.9.1",
-        "pug": "^2.0.4",
         "pg": "^7.17.1",
         "pg-hstore": "^2.3.3",
-        "sequelize": "^5.21.3"
+        "pug": "^2.0.4",
+        "sequelize": "^5.21.3",
+        "uuid": "^3.4.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.7.5",

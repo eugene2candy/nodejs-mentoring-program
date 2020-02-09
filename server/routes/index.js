@@ -1,4 +1,5 @@
 const usersController = require('../controllers').users;
+const groupsController = require('../controllers').groups;
 
 module.exports = app => {
     app.get(
@@ -16,4 +17,13 @@ module.exports = app => {
     app.get('/user/:id', usersController.retrieve);
     app.put('/user/:id', usersController.update);
     app.delete('/user/:id', usersController.destroy);
+
+    app.post('/group', groupsController.create);
+    app.get('/group', groupsController.list);
+    app.get('/group/:id', groupsController.retrieve);
+    app.put('/group/:id', groupsController.update);
+    app.delete('/group/:id', groupsController.destroy);
+
+    app.post('/usergroup', groupsController.addUser);
+    app.get('/usergroup', groupsController.userGroupList);
 };

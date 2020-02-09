@@ -43,7 +43,7 @@ module.exports = {
         const { id } = req.params;
         const userDTO = req.body;
         if (!id) {
-            res.status(404).send('Id is missing');
+            res.status(400).send('Id is missing');
             return;
         }
         try {
@@ -61,7 +61,7 @@ module.exports = {
     async destroy(req, res) {
         const { id } = req.params;
         if (!id) {
-            res.status(404).send('Id is missing');
+            res.status(400).send('Id is missing');
             return;
         }
         try {

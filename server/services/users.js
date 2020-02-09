@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { User } = require('../models');
+const { User, UserGroup } = require('../models');
 
 module.exports = {
     createUser({ login, password, age }) {
@@ -40,27 +40,28 @@ module.exports = {
 
     async updateUserById(id, { login, password, age }) {
         const user = await User.findByPk(id);
-        if (user) {
-            return user.update({
-                login: login || user.login,
-                password: password || user.password,
-                age: age || user.age,
-                isDeleted: false
-            });
-        }
-        return User.findByPk(id);
+        if (!user) return user;
+        return user.update({
+            login: login || user.login,
+            password: password || user.password,
+            age: age || user.age,
+            isDeleted: false
+        });
     },
 
     async deleteUserById(id) {
         const user = await User.findByPk(id);
-        if (user) {
-            return user.update({
-                login: user.login,
-                password: user.password,
-                age: user.age,
-                isDeleted: true
-            });
-        }
-        return User.findByPk(id);
+        if (!user) return user;
+        await UserGroup.destroy({
+            where: {
+                userId: id
+            }
+        });
+        return user.update({
+            login: user.login,
+            password: user.password,
+            age: user.age,
+            isDeleted: true
+        });
     }
 };

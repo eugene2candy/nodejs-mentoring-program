@@ -1,5 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true
+        },
         login: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -29,5 +34,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN
         }
     });
+    User.associate = models => {
+        User.belongsToMany(models.Group, {
+            through: 'UserGroups',
+            as: 'groups',
+            foreignKey: 'userId'
+        });
+    };
     return User;
 };
