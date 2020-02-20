@@ -47,10 +47,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./server/routes')(app);
 
-app.get('*', (req, res) => res.status(500).send({ message: 'Method Not Existed! ' }));
-app.post('*', (req, res) => res.status(500).send({ message: 'Method Not Existed! ' }));
-app.put('*', (req, res) => res.status(500).send({ message: 'Method Not Existed! ' }));
-app.delete('*', (req, res) => res.status(500).send({ message: 'Method Not Existed! ' }));
+app.all('*', (req, res) => res.status(404).send({ message: 'Not Found' }));
 
 process.on('uncaughtException', (err, origin) => {
     app.use(logger(`Caught exception: ${err}\nException origin: ${origin}`));
