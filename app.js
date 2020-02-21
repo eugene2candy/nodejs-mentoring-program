@@ -6,6 +6,17 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+process.on('uncaughtException', (err, origin) => {
+    console.log('This is uncaught exception');
+    console.log(`Caught exception: ${err}\nException origin: ${origin}`);
+    console.log(err.stack);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('unhandled rejection at: ', promise, 'reason: ', reason);
+    process.exit(1);
+});
+
 const accessLogStream = rfs.createStream('access.log', {
     interval: '1d',
     path: path.join(__dirname, 'logs')
@@ -48,9 +59,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require('./server/routes')(app);
 
 app.all('*', (req, res) => res.status(404).send({ message: 'Not Found' }));
-
-process.on('uncaughtException', (err, origin) => {
-    app.use(logger(`Caught exception: ${err}\nException origin: ${origin}`));
-});
 
 module.exports = app;
