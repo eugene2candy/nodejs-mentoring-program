@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const rfs = require('rotating-file-stream');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 
@@ -16,6 +17,17 @@ process.on('unhandledRejection', (reason, promise) => {
     console.log('unhandled rejection at: ', promise, 'reason: ', reason);
     process.exit(1);
 });
+
+const whitelist = ['http://example1.com', 'http://example2.com'];
+const corsOptionsDelegate = (req, callback) => {
+    let corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false }; // disable CORS for this request
+    }
+    callback(null, corsOptions); // callback expects two parameters: error and options
+};
 
 const accessLogStream = rfs.createStream('access.log', {
     interval: '1d',
@@ -56,6 +68,7 @@ app.use(logger(loggerFormat, { stream: accessLogStream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(cors(corsOptionsDelegate));
 require('./server/routes')(app);
 
 app.all('*', (req, res) => res.status(404).send({ message: 'Not Found' }));
