@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "aaef5484-0bd3-45db-b27d-3c93bde44658",
-		"name": "Nodejs Homework 4",
+		"name": "Nodejs Homework 6",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -55,7 +55,13 @@
 			"name": "get",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "authentication",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1ODMzMjI2MjMsImV4cCI6MTU4MzMyMjc0M30.-4j13P86owi03o_pgWp5NG7t7apqEDGGbVJGrqtsUCs",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8000/user?",
 					"protocol": "http",
