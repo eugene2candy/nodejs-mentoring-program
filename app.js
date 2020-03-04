@@ -7,6 +7,8 @@ const cors = require('cors');
 
 const app = express();
 
+require('dotenv').config();
+
 process.on('uncaughtException', (err, origin) => {
     console.log('This is uncaught exception');
     console.log(`Caught exception: ${err}\nException origin: ${origin}`);
