@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "aaef5484-0bd3-45db-b27d-3c93bde44658",
-		"name": "Nodejs Homework 4",
+		"name": "Nodejs Homework 6",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -22,7 +22,7 @@
 					"urlencoded": [
 						{
 							"key": "login",
-							"value": "test12xd",
+							"value": "test1xxxsddx",
 							"type": "text"
 						},
 						{
@@ -55,7 +55,13 @@
 			"name": "get",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "authentication",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1ODMzMjI2MjMsImV4cCI6MTU4MzMyMjc0M30.-4j13P86owi03o_pgWp5NG7t7apqEDGGbVJGrqtsUCs",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8000/user?",
 					"protocol": "http",
@@ -155,7 +161,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/user/14",
+					"raw": "http://localhost:8000/user/97b593aa-ae7f-4703-b4f0-3f372f996e3b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -163,7 +169,7 @@
 					"port": "8000",
 					"path": [
 						"user",
-						"14"
+						"97b593aa-ae7f-4703-b4f0-3f372f996e3b"
 					]
 				}
 			},
@@ -186,13 +192,19 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "group33sx",
+							"value": "dsdsssadddd",
 							"type": "text"
 						},
 						{
 							"key": "permission",
 							"value": "READ",
 							"type": "text"
+						},
+						{
+							"key": "permission",
+							"value": "WRITE",
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -235,7 +247,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/group/a49fcbbc-c883-431b-820d-6820e6737501",
+					"raw": "http://localhost:8000/group/a857e7e6-ee35-4c38-b5e2-45fb6c000c9b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -243,7 +255,7 @@
 					"port": "8000",
 					"path": [
 						"group",
-						"a49fcbbc-c883-431b-820d-6820e6737501"
+						"a857e7e6-ee35-4c38-b5e2-45fb6c000c9b"
 					]
 				}
 			},
@@ -297,7 +309,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/group/a49fcbbc-c883-431b-820d-6820e6737501",
+					"raw": "http://localhost:8000/group/2881dacc-d111-482b-8620-63b31170c016",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -305,7 +317,7 @@
 					"port": "8000",
 					"path": [
 						"group",
-						"a49fcbbc-c883-431b-820d-6820e6737501"
+						"2881dacc-d111-482b-8620-63b31170c016"
 					]
 				}
 			},
@@ -346,13 +358,18 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "UserId",
-							"value": "6b135f73-4215-4054-9ada-54eb8306261c",
+							"key": "UserIds",
+							"value": "29230de1-f5d6-4782-be10-92c58eaf0a6b",
+							"type": "text"
+						},
+						{
+							"key": "UserIds",
+							"value": "97b593aa-ae7f-4703-b4f0-3f372f996e3b",
 							"type": "text"
 						},
 						{
 							"key": "GroupId",
-							"value": "a2e060b7-b73f-482b-b0d2-f777ea8c57fb",
+							"value": "a857e7e6-ee35-4c38-b5e2-45fb6c000c9b",
 							"type": "text"
 						}
 					]
@@ -366,6 +383,47 @@
 					"port": "8000",
 					"path": [
 						"usergroup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test1xxxddx",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "dddsss222",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"authenticate"
 					]
 				}
 			},

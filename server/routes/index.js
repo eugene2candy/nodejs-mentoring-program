@@ -1,5 +1,6 @@
 const usersController = require('../controllers').users;
 const groupsController = require('../controllers').groups;
+const authenticationController = require('../controllers').authentication;
 
 // eslint-disable-next-line arrow-body-style
 const asyncHandler = (fn, serviceMethod) => (req, res, next) => {
@@ -10,6 +11,9 @@ const asyncHandler = (fn, serviceMethod) => (req, res, next) => {
 
 module.exports = app => {
     app.get('/api', (req, res) => res.status(200).send({ message: 'Welcome to the Users API!' }));
+
+    app.post('/authenticate', asyncHandler(authenticationController.authenticate, 'authenticationService.login'));
+    app.use(authenticationController.checkToken);
 
     app.post('/user', asyncHandler(usersController.create, 'userService.createUser'));
     app.get('/user', asyncHandler(usersController.list, 'userService.findList'));
